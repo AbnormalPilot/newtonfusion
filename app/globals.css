@@ -1,0 +1,152 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Soft Apple/Slack Light Mode */
+  --background: oklch(0.985 0.005 240);
+  --foreground: oklch(0.2 0.02 240);
+  --card: rgba(255, 255, 255, 0.6);
+  --card-foreground: oklch(0.2 0.02 240);
+  --popover: rgba(255, 255, 255, 0.95);
+  --popover-foreground: oklch(0.2 0.02 240);
+  --primary: #007AFF;
+  --primary-foreground: #FFFFFF;
+  --secondary: oklch(0.92 0.01 240);
+  --secondary-foreground: oklch(0.4 0.02 240);
+  --muted: oklch(0.96 0.005 240);
+  --muted-foreground: oklch(0.5 0.02 240);
+  --accent: oklch(0.94 0.02 240);
+  --accent-foreground: oklch(0.2 0.02 240);
+  --destructive: oklch(0.55 0.22 25);
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(0, 0, 0, 0.08);
+  --input: rgba(255, 255, 255, 0.8);
+  --ring: #007AFF;
+  --radius: 1.5rem; /* squircle-style */
+}
+
+.dark {
+  /* Dynamic Dark Mode matching the ref (if needed) but user liked the light-themed image */
+  --background: oklch(0.12 0.02 240);
+  --foreground: oklch(0.98 0 0);
+  --card: rgba(30, 30, 35, 0.7);
+  --card-foreground: oklch(0.98 0 0);
+  --border: rgba(255, 255, 255, 0.1);
+  --primary: #0A84FF;
+  --radius: 1.5rem;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --radius-xl: var(--radius);
+  --radius-2xl: calc(var(--radius) + 0.5rem);
+  --radius-3xl: calc(var(--radius) + 1.5rem);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-none;
+  }
+  body {
+    @apply bg-background text-foreground selection:bg-primary/20 selection:text-primary;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Apple Sidebar Glassmorphism */
+.sidebar-acrylic {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-squircle {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.04);
+}
+
+.input-floating {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 48px -12px rgba(0, 0, 0, 0.1);
+}
+
+/* Animations from previous but refined */
+@keyframes rainbow-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-rainbow {
+  animation: rainbow-shimmer 3s ease infinite;
+  background-size: 200% auto;
+}
+
+.command-badge {
+  @apply inline-flex items-center gap-1.5 px-3 py-1.5 rounded-2xl font-bold text-xs tracking-tight shadow-sm;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.rainbow-text {
+  background: linear-gradient(
+    to right,
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #0000ff,
+    #4b0082,
+    #8f00ff,
+    #ff0000
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.animate-reveal {
+  animation: reveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.mesh-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: #f9fafb;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(200, 240, 200, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(220, 220, 230, 0.2) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(240, 240, 250, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(230, 230, 240, 0.15) 0px, transparent 50%);
+}

@@ -1,0 +1,10 @@
+[build]
+installCommand = "npm install"
+buildCommand = "npm run build"
+
+[run]
+startCommand = "npm run start"
+
+[variables]
+NODE_ENV = "production"
+# HUGGING_FACE_API_KEY must be provided as an environment variable in your deployment platform (e.g. Railway)
