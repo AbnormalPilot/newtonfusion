@@ -1,13 +1,16 @@
-[setup]
-packages = ["nodejs_22"]
+[phases.setup]
+nixPkgs = ["nodejs_22"]
 
-[build]
-installCommand = "npm install"
-buildCommand = "npm run build"
+[phases.install]
+cmds = ["npm install"]
 
-[run]
-startCommand = "npm run start"
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npm run start"
 
 [variables]
 NODE_ENV = "production"
-# HUGGING_FACE_API_KEY must be provided as an environment variable in your deployment platform (e.g. Railway)
+NIXPACKS_NODE_VERSION = "22"
+# HUGGING_FACE_API_KEY must be provided as an environment variable in your deployment platform
