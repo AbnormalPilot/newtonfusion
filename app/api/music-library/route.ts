@@ -1,8 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { put, list } from "@vercel/blob"
-const token = "vercel_blob_rw_P7RvilaKMiY3GjId_Fwvrk9M6RvWnzlNDlg7U6LD6U4G7MV"
 const getBlobConfig = () => {
-  const token = "vercel_blob_rw_P7RvilaKMiY3GjId_Fwvrk9M6RvWnzlNDlg7U6LD6U4G7MV"
+  const token = process.env.BLOB_READ_WRITE_TOKEN
   return token ? { token } : {}
 }
 
@@ -10,7 +9,7 @@ export async function GET() {
   try {
     console.log("[v0] Fetching music library from Blob storage...")
 
-    if (!token) {
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
       console.error("[v0] BLOB_READ_WRITE_TOKEN not configured")
       return NextResponse.json({
         tracks: [],
@@ -61,7 +60,7 @@ export async function POST(request: NextRequest) {
   try {
     console.log("[v0] Starting music track save process")
 
-    if (!token) {
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
       console.error("[v0] BLOB_READ_WRITE_TOKEN not configured")
       return NextResponse.json(
         {
@@ -110,7 +109,7 @@ export async function POST(request: NextRequest) {
       duration_seconds: durationSeconds,
       file_url: blob.url,
       created_at: new Date().toISOString(),
-      size: blob.size,
+      size: audioFile.size,
     }
 
     return NextResponse.json({

@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import { del } from "@vercel/blob"
 
 function getBlobConfig() {
-  const token = "vercel_blob_rw_P7RvilaKMiY3GjId_Fwvrk9M6RvWnzlNDlg7U6LD6U4G7MV"
+  const token = process.env.BLOB_READ_WRITE_TOKEN
   if (!token) {
     throw new Error("BLOB_READ_WRITE_TOKEN environment variable is not configured. Please add it in Project Settings.")
   }
